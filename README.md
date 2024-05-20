@@ -15,3 +15,9 @@ Tecnologías Utilizadas:
 ML.NET
 
 3-Reconocimiento de imagenes sticket
+
+
+
+----- referencias
+
+link modelo de datos emociones : https://www.kaggle.com/datasets/jonathanoheix/face-expression-recognition-dataset
