@@ -11,6 +11,9 @@
     <PackageReference Include="SciSharp.TensorFlow.Redist" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ReconocimientoEmocionesIA_Service\ReconocimientoEmocionesIA_Logica.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="ReconocimientoEmocionesIAModelML.mlnet">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

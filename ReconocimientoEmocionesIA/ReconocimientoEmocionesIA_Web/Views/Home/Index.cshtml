@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ReconocimientoEmocionesIA_Web.Models.EmocionViewModel>
+
+@{
+    ViewData["Title"] = "Detector de emociones";
+}
+
+<h1>Deteccion de emociones</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                %
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Porcentaje)%
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
