@@ -2,22 +2,15 @@
 Poryecto de inteligencia artificial para programacion web 3 UNLAM
 
 
-idea que vamos a proponer:
-1-Reconocimiento facial para saber emociones
+Generador de MEME:
+a partir de un modelo de inteligencia artificial poder realizar el reconocimiento de emociones de una foto 
+y generar un meme al usuario mediante el cual podra guardarlo.
 
+tecnologias utilizadas:
+ASP.NET MVC
+ML.NET (CLASIFICACION DE IMAGENES)
+MY SQL
 
-2 - Nombre del Proyecto: Sistema de Recomendación de Productos con ML.NET
-
-Descripción:
-Este proyecto tiene como objetivo desarrollar un sistema de recomendación de productos utilizando técnicas de inteligencia artificial y machine learning con la plataforma ML.NET de Microsoft. El sistema analizará el historial de compras, preferencias y patrones de comportamiento de los usuarios para generar recomendaciones personalizadas de productos.
-
-Tecnologías Utilizadas:
-ML.NET
-
-3-Reconocimiento de imagenes sticket
-
-
-
------ referencias
-
-link modelo de datos emociones : https://www.kaggle.com/datasets/jonathanoheix/face-expression-recognition-dataset
+----- referencias----
+link para entrenar el modelo de datos de emociones : https://www.kaggle.com/datasets/jonathanoheix/face-expression-recognition-dataset
+planilla de seguimiento de proyecto : https://docs.google.com/spreadsheets/d/1hJmb_q-kmKrQrMERHi3yWrTwagL_ji3MqohxXqDv0f4/edit#gid=0
