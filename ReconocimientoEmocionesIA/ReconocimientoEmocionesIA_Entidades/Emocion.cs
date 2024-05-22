@@ -1,4 +1,4 @@
-﻿namespace ReconocimientoEmocionesIA_Modelo
+﻿namespace ReconocimientoEmocionesIA_Entidades
 {
     public class Emocion
     {

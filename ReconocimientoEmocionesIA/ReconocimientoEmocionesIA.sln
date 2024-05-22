@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReconocimientoEmocionesIA_Logica", "ReconocimientoEmocionesIA_Logica\ReconocimientoEmocionesIA_Logica.csproj", "{AF9E8358-B0E2-4A6B-B153-28C0A8087297}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReconocimientoEmocionesIA_Modelo", "ReconocimientoEmocionesIA_Modelo\ReconocimientoEmocionesIA_Modelo.csproj", "{C800E932-33FF-478D-A85E-A243BC532889}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReconocimientoEmocionesIA_Entidades", "ReconocimientoEmocionesIA_Entidades\ReconocimientoEmocionesIA_Entidades.csproj", "{C800E932-33FF-478D-A85E-A243BC532889}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReconocimientoEmocionesIA_Web", "ReconocimientoEmocionesIA_Web\ReconocimientoEmocionesIA_Web.csproj", "{6978F4AA-022B-41BD-A261-06419EBD580A}"
 EndProject
