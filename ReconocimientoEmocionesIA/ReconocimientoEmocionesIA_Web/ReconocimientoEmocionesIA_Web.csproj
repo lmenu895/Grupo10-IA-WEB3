@@ -14,4 +14,8 @@
     <ProjectReference Include="..\ReconocimientoEmocionesIA_Logica\ReconocimientoEmocionesIA_Logica.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\imagenes\" />
+  </ItemGroup>
+
 </Project>
