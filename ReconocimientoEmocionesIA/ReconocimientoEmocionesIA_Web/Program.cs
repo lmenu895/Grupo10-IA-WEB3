@@ -1,7 +1,13 @@
+using Microsoft.AspNetCore.Http.Features;
 using ReconocimientoEmocionesIA_Logica;
 using ReconocimientoEmocionesIA_Logica.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 524288000; // 500 MB
+});
 
 builder.Services.AddSingleton<IReconocimientoEmocionesService, ReconocimientoEmocionesService>();
 // Add services to the container.
@@ -17,6 +23,10 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+}
+else
+{
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();

@@ -6,6 +6,14 @@
 
 <h1>Deteccion de emociones</h1>
 
+<form id="uploadForm" method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="UploadImage">
+    <div class="form-group">
+        <label for="imageUpload">Subir imagen</label>
+        <input type="file" class="form-control" id="imageUpload" name="image" accept="image/*" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Subir Imagen</button>
+</form>
+
 <table class="table">
     <thead>
         <tr>
