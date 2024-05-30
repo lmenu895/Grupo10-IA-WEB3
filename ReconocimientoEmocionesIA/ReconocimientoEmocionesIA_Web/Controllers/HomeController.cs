@@ -20,7 +20,7 @@ namespace ReconocimientoEmocionesIA_Web.Controllers
 
         public IActionResult Index()
         {
-            var imageBytes = System.IO.File.ReadAllBytes(@"C:\Users\Usuario\Desktop\emocion1.jpg");
+            var imageBytes = System.IO.File.ReadAllBytes(@"C:\Users\Usuario\Desktop\Emociones\sorprendido.jpg");
             var result = this.reconocimientoEmocionesService.ListarEmocionesDetectadas(imageBytes);
 
             return View(EmocionViewModel.Map(result));

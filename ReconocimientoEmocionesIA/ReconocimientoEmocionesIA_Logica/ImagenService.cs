@@ -12,7 +12,7 @@ public class ImagenService : IImagenService
     private static Random ran = new Random();
     private List<string> _frases = new List<string>()
     {
-        "Hola", "Adios", "Buen dia", "Buenas noches", "Buenas tardes", "Hello", "Goodbye"
+        "Hola", "Adios", "Buen dia", "Buenas noches", "Buenas tardes", "Como estas", "Estoy triste", "Estoy feliz", "Estoy enojado", "Estoy sorprendido"
     };
 
     public string GuardarImagen(IFormFile imagen, string webRootPath)
