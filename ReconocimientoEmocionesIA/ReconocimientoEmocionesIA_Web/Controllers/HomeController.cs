@@ -23,14 +23,6 @@ public class HomeController : Controller
         return View(new List<EmocionViewModel>());
     }
 
-    /*public IActionResult Index()
-    {
-        var imageBytes = System.IO.File.ReadAllBytes(@"C:\Users\AIVAN\Desktop\PrograWeb3\Imagenes\pngtree-excited-face-of-woman-closeup-people-palm-photo-picture-image_6792572.jpg");
-        var result = this.reconocimientoEmocionesService.ListarEmocionesDetectadas(imageBytes);
-
-        return View(EmocionViewModel.Map(result));
-    }*/
-
     [HttpPost]
     public async Task<IActionResult> UploadImage(IFormFile image)
     {
