@@ -28,27 +28,28 @@ namespace ReconocimientoEmocionesIA_Web.Controllers
         return View(new List<EmocionViewModel>());
     }
 
-    [HttpPost]
-    public async Task<IActionResult> UploadImage(IFormFile image)
-    {
-        if (image == null || image.Length == 0)
+        [HttpPost]
+        public async Task<IActionResult> UploadImage(IFormFile image)
         {
-            ModelState.AddModelError("image", "Please upload a valid image.");
-            return View("Index", new List<EmocionViewModel>());
+            if (image == null || image.Length == 0)
+            {
+                ModelState.AddModelError("image", "Please upload a valid image.");
+                return View("Index", new List<EmocionViewModel>());
+            }
+
+            var fileName = Path.GetFileName(image.FileName);
+            var filePath = Path.Combine(_imageUploadPath, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await image.CopyToAsync(stream);
+            }
+
+            var imageBytes = System.IO.File.ReadAllBytes(filePath);
+            var result = reconocimientoEmocionesService.ListarEmocionesDetectadas(imageBytes);
+
+            return View("Index", EmocionViewModel.Map(result));
         }
-
-        var fileName = Path.GetFileName(image.FileName);
-        var filePath = Path.Combine(_imageUploadPath, fileName);
-
-        using (var stream = new FileStream(filePath, FileMode.Create))
-        {
-            await image.CopyToAsync(stream);
-        }
-
-        var imageBytes = System.IO.File.ReadAllBytes(filePath);
-        var result = reconocimientoEmocionesService.ListarEmocionesDetectadas(imageBytes);
-
-        return View("Index", EmocionViewModel.Map(result));
 
         public ActionResult GenerarImg()
         {
