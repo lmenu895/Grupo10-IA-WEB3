@@ -20,3 +20,35 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.contenedor-imagen {
+    position: relative;
+    display: inline-block;
+}
+
+.texto-superior,
+.texto-inferior {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: white; 
+    font-size: 28px; 
+    z-index: 1;
+}
+
+.texto-superior {
+    top: 10px;
+}
+
+.texto-inferior {
+    bottom: 10px;
+}
+
+.imagen {
+    max-width: 500px;
+    height: auto; 
+    display: block; 
+    position: relative; 
+    z-index: 0; 
+}

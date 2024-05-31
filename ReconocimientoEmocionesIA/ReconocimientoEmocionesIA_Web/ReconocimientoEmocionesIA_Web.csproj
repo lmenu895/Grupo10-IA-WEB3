@@ -18,4 +18,8 @@
     <Folder Include="wwwroot\imagenes\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+
 </Project>

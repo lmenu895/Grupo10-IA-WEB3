@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Mostrar Imagen";
+}
+
+<div class="contenedor-imagen">
+    <img class="imagen" src="@Url.Content("~/img/" + ViewBag.ImagePath)" alt="Imagen" />
+    <div class="texto-superior">@ViewBag.TextoSuperior</div>
+    <div class="texto-inferior">@ViewBag.TextoInferior</div>
+</div>
+
+
+

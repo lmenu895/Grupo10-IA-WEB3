@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http.Features;
 using ReconocimientoEmocionesIA_Logica;
 using ReconocimientoEmocionesIA_Logica.Interfaces;
+using ReconocimientoEmocionesIA_Logica.Servicios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,8 @@ builder.Services.Configure<FormOptions>(options =>
     options.MultipartBodyLengthLimit = 524288000; // 500 MB
 });
 
+builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<IImagenService, ImagenService>();
 builder.Services.AddSingleton<IReconocimientoEmocionesService, ReconocimientoEmocionesService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();

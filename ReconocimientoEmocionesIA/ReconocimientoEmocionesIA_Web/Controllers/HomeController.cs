@@ -1,22 +1,27 @@
 using Microsoft.AspNetCore.Mvc;
 using ReconocimientoEmocionesIA_Logica;
 using ReconocimientoEmocionesIA_Logica.Interfaces;
+using ReconocimientoEmocionesIA_Logica.Servicios;
 using ReconocimientoEmocionesIA_Web.Models;
-using System;
 
-namespace ReconocimientoEmocionesIA_Web.Controllers;
-
-public class HomeController : Controller
+namespace ReconocimientoEmocionesIA_Web.Controllers
 {
-    private IReconocimientoEmocionesService reconocimientoEmocionesService;
-    private string _imageUploadPath;
-
-    public HomeController(IReconocimientoEmocionesService reconocimiento)
+    public class HomeController : Controller
     {
-        this.reconocimientoEmocionesService = reconocimiento;
-        this._imageUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "imagenes");
-        Directory.CreateDirectory(_imageUploadPath);
-    }
+        private IReconocimientoEmocionesService reconocimientoEmocionesService;
+        private readonly IImagenService _imagenService;
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        private string _imageUploadPath;
+
+
+        public HomeController(IReconocimientoEmocionesService reconocimiento, IImagenService imagenService, IWebHostEnvironment hostingEnvironment)
+        {
+            this.reconocimientoEmocionesService = reconocimiento;
+            _imagenService = imagenService;
+            _hostingEnvironment = hostingEnvironment;
+            this._imageUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "imagenes");
+            Directory.CreateDirectory(_imageUploadPath);
+        }
 
     public IActionResult Index()
     {
@@ -44,5 +49,33 @@ public class HomeController : Controller
         var result = reconocimientoEmocionesService.ListarEmocionesDetectadas(imageBytes);
 
         return View("Index", EmocionViewModel.Map(result));
+
+        public ActionResult GenerarImg()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult GenerarImg(IFormFile imagen)
+        {
+            try
+            {
+                var fileName = _imagenService.GuardarImagen(imagen, _hostingEnvironment.WebRootPath);
+
+                return RedirectToAction("MostrarImagen", new { imagePath = fileName });
+            }
+            catch (ArgumentException)
+            {
+                return View("Error");
+            }
+        }
+
+        public IActionResult MostrarImagen(string imagePath)
+        {
+            ViewBag.ImagePath = imagePath;
+            ViewBag.TextoSuperior = _imagenService.ObtenerFrasesAleatorias();
+            ViewBag.TextoInferior = _imagenService.ObtenerFrasesAleatorias();
+            return View();
+        }
     }
 }
