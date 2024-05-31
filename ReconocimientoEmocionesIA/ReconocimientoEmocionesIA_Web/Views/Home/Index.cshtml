@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ReconocimientoEmocionesIA_Web.Models.EmocionViewModel>
+﻿@model ReconocimientoEmocionesIA_Web.Models.MemeViewModel
 
 @{
     ViewData["Title"] = "Detector de emociones";
@@ -6,19 +6,34 @@
 
 <h1>Deteccion de emociones</h1>
 
-<form id="uploadForm" method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="UploadImage">
+<form id="uploadForm" method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="GenerarImg">
     <div class="form-group">
         <label for="imageUpload">Subir imagen</label>
-        <input type="file" class="form-control" id="imageUpload" name="image" accept="image/*" required>
+        <input type="file" class="form-control" id="imageUpload" name="imagen" accept="image/*" required>
     </div>
-    <button type="submit" class="btn btn-primary">Subir Imagen</button>
+    <button type="submit" class="btn btn-primary">Cargar Imagen</button>
 </form>
 
+
+<div class="contenedor-imagen">
+    <img class="imagen" src="@Url.Content("~/imagenes/" + Model.Imagen)" alt="Imagen" />
+</div>
+
+<form id="generadorMemeForm" method="post" asp-controller="Home" asp-action="GenerarMeme">
+    <div class="form-group">
+        <input type="hidden" class="form-control" value="@Model.Imagen" id="imagenMeme" name="fileName" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Generar Meme</button>
+</form>
+
+
+@if (Model != null && Model.Emociones != null)
+{
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nombre)
+                Emoción
             </th>
             <th>
                 %
@@ -26,7 +41,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Emociones)
         {
             <tr>
                 <td>
@@ -39,3 +54,10 @@
         }
     </tbody>
 </table>
+
+    <div class="contenedor-imagen">
+        <img class="imagen" src="@Url.Content("~/imagenes/" + Model.Imagen)" alt="Imagen" />
+        <div class="texto-superior">@Model.Frase</div>
+    </div>
+
+}

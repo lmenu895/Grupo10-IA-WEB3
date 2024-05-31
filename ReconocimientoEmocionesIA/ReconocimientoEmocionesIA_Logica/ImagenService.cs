@@ -5,6 +5,8 @@ public interface IImagenService
 {
     string GuardarImagen(IFormFile imagen, string webRootPath);
     public string ObtenerFrasesAleatorias();
+
+    public string ObtenerPathImagen(string fileName, string webRootPath);
 }
 
 public class ImagenService : IImagenService
@@ -19,7 +21,7 @@ public class ImagenService : IImagenService
     {
         if (imagen != null && imagen.Length > 0)
         {
-            var uploadsFolder = Path.Combine(webRootPath, "img");
+            var uploadsFolder = Path.Combine(webRootPath, "imagenes");
 
             if (!Directory.Exists(uploadsFolder))
                 Directory.CreateDirectory(uploadsFolder);
@@ -38,6 +40,12 @@ public class ImagenService : IImagenService
         {
             throw new ArgumentException("Formato no válido");
         }
+    }
+
+    public string ObtenerPathImagen(string fileName, string webRootPath)
+    {
+        var uploadsFolder = Path.Combine(webRootPath, "imagenes");
+        return Path.Combine(uploadsFolder, fileName);
     }
 
     public string ObtenerFrasesAleatorias()

@@ -1,4 +1,5 @@
-﻿using Tensorflow;
+﻿using ReconocimientoEmocionesIA_Entidades;
+using Tensorflow;
 
 namespace ReconocimientoEmocionesIA_Web.Models
 {
@@ -13,14 +14,14 @@ namespace ReconocimientoEmocionesIA_Web.Models
         {
         }
 
-        public EmocionViewModel(KeyValuePair<string, float> prediccion)
+        public EmocionViewModel(Emocion prediccion)
         {
-            this.Nombre = prediccion.Key;
-            this.Porcentaje = prediccion.Value * 100;
+            this.Nombre = prediccion.Nombre;
+            this.Porcentaje = prediccion.Porcentaje * 100;
         }
 
 
-        public static IList<EmocionViewModel> Map(IOrderedEnumerable<KeyValuePair<string, float>> prediccion)
+        public static IList<EmocionViewModel> Map(List<Emocion> prediccion)
         {
             return prediccion.Select(x => new EmocionViewModel(x)).ToList();
         }

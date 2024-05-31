@@ -13,6 +13,7 @@ builder.Services.Configure<FormOptions>(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IImagenService, ImagenService>();
 builder.Services.AddSingleton<IReconocimientoEmocionesService, ReconocimientoEmocionesService>();
+builder.Services.AddSingleton<IMemeService, MemeService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

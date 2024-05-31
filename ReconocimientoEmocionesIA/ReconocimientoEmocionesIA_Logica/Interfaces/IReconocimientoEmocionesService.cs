@@ -1,7 +1,9 @@
-﻿namespace ReconocimientoEmocionesIA_Logica.Interfaces
+﻿using ReconocimientoEmocionesIA_Entidades;
+
+namespace ReconocimientoEmocionesIA_Logica.Interfaces
 {
     public interface IReconocimientoEmocionesService
     {
-        IOrderedEnumerable<KeyValuePair<string, float>> ListarEmocionesDetectadas(byte[] imagen);
+        List<Emocion> ListarEmocionesDetectadas(byte[] imagen);
     }
 }

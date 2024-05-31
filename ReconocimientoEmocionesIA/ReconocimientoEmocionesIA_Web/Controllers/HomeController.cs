@@ -8,52 +8,21 @@ namespace ReconocimientoEmocionesIA_Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IReconocimientoEmocionesService reconocimientoEmocionesService;
-        private readonly IImagenService _imagenService;
-        private readonly IWebHostEnvironment _hostingEnvironment;
-        private string _imageUploadPath;
+        private readonly IImagenService imagenService;
+        private readonly IWebHostEnvironment hostingEnvironment;
+        private readonly IMemeService memeService;
 
-
-        public HomeController(IReconocimientoEmocionesService reconocimiento, IImagenService imagenService, IWebHostEnvironment hostingEnvironment)
+        public HomeController(IMemeService memeService, IImagenService imagenService, IWebHostEnvironment hostingEnvironment)
         {
-            this.reconocimientoEmocionesService = reconocimiento;
-            _imagenService = imagenService;
-            _hostingEnvironment = hostingEnvironment;
-            this._imageUploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "imagenes");
-            Directory.CreateDirectory(_imageUploadPath);
+            this.imagenService = imagenService;
+            this.hostingEnvironment = hostingEnvironment;
+            this.memeService = memeService;
         }
 
-    public IActionResult Index()
-    {
-        return View(new List<EmocionViewModel>());
-    }
-
-        [HttpPost]
-        public async Task<IActionResult> UploadImage(IFormFile image)
+        [HttpGet]
+        public IActionResult Index(MemeViewModel memeViewModel)
         {
-            if (image == null || image.Length == 0)
-            {
-                ModelState.AddModelError("image", "Please upload a valid image.");
-                return View("Index", new List<EmocionViewModel>());
-            }
-
-            var fileName = Path.GetFileName(image.FileName);
-            var filePath = Path.Combine(_imageUploadPath, fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await image.CopyToAsync(stream);
-            }
-
-            var imageBytes = System.IO.File.ReadAllBytes(filePath);
-            var result = reconocimientoEmocionesService.ListarEmocionesDetectadas(imageBytes);
-
-            return View("Index", EmocionViewModel.Map(result));
-        }
-
-        public ActionResult GenerarImg()
-        {
-            return View();
+            return View(memeViewModel);
         }
 
         [HttpPost]
@@ -61,9 +30,9 @@ namespace ReconocimientoEmocionesIA_Web.Controllers
         {
             try
             {
-                var fileName = _imagenService.GuardarImagen(imagen, _hostingEnvironment.WebRootPath);
+                var fileName = this.imagenService.GuardarImagen(imagen, this.hostingEnvironment.WebRootPath);
 
-                return RedirectToAction("MostrarImagen", new { imagePath = fileName });
+                return RedirectToAction("Index", new MemeViewModel { Imagen = fileName });
             }
             catch (ArgumentException)
             {
@@ -71,11 +40,18 @@ namespace ReconocimientoEmocionesIA_Web.Controllers
             }
         }
 
-        public IActionResult MostrarImagen(string imagePath)
+        [HttpPost]
+        public IActionResult GenerarMeme(string fileName)
         {
-            ViewBag.ImagePath = imagePath;
-            ViewBag.TextoSuperior = _imagenService.ObtenerFrasesAleatorias();
-            ViewBag.TextoInferior = _imagenService.ObtenerFrasesAleatorias();
+
+            var result = this.memeService.Generar(fileName, this.hostingEnvironment.WebRootPath);
+
+            return View("Index", new MemeViewModel(result));
+        }
+
+        [HttpGet]
+        public IActionResult Capturar()
+        {
             return View();
         }
     }
