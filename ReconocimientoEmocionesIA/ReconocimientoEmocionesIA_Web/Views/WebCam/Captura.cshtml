@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "Captura de Webcam";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<video id="video" width="640" height="480" autoplay></video>
+<button id="capture">Capturar</button>
+<canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+
+<script>
+    (function() {
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureButton = document.getElementById('capture');
+        const context = canvas.getContext('2d');
+
+        // Solicitar acceso a la webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(err => {
+                console.error(`Error al acceder a la webcam: ${err}`);
+            });
+
+        // Capturar la imagen al hacer clic en el botón
+        captureButton.addEventListener('click', () => {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const imageData = canvas.toDataURL('image/png');
+
+            // Enviar la imagen al servidor
+            fetch('/WebCam/GuardarImagen', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ imageData })
+            }).then(response => {
+                if (response.ok) {
+                    alert('Imagen guardada con éxito');
+                    window.location.href = '/Home/IndexWebCam';
+                } else {
+                    alert('Error al guardar la imagen');
+                }
+            }).catch(error => {
+                console.error('Error al enviar la imagen al servidor:', error);
+            });
+        });
+    })();
+</script>
+
+
