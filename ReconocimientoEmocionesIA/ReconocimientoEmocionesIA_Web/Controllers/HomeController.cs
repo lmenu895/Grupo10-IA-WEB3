@@ -49,13 +49,21 @@ namespace ReconocimientoEmocionesIA_Web.Controllers
             return View("Index", new MemeViewModel(result));
         }
 
-        [HttpGet]
-        public IActionResult Capturar()
+
+        [HttpPost]
+        public async Task<IActionResult> Capturar([FromBody] ImagenViewModel imagenData)
         {
-            return View();
+            try
+            {
+                var fileName = this.imagenService.GuardarImagenWC(imagenData.ImageData).Result;
+                return Ok(new MemeViewModel { Imagen = fileName });
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al guardar la imagen: {ex.Message}");
+            }
         }
-        
-        
-        
+
     }
 }

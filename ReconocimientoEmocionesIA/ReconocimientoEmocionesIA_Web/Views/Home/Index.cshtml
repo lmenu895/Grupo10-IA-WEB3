@@ -1,10 +1,14 @@
 ﻿@model ReconocimientoEmocionesIA_Web.Models.MemeViewModel
 
 @{
-    ViewData["Title"] = "Detector de emociones";
+    ViewData["Title"] = "Generador de memes";
 }
 
-<h1>Deteccion de emociones</h1>
+<h1>Generador de MEMES</h1>
+
+<video id="video" width="640" height="480" autoplay></video>
+<button class="btn btn-primary" id="capture">Realizar Captura</button>
+<canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
 
 <form id="uploadForm" method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="GenerarImg">
     <div class="form-group">

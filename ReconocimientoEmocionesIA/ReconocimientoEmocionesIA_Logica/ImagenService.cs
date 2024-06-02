@@ -4,6 +4,9 @@ namespace ReconocimientoEmocionesIA_Logica.Servicios;
 public interface IImagenService
 {
     string GuardarImagen(IFormFile imagen, string webRootPath);
+
+    public Task<string> GuardarImagenWC(string imagenWC);
+
     public string ObtenerFrasesAleatorias();
 
     public string ObtenerPathImagen(string fileName, string webRootPath);
@@ -40,6 +43,26 @@ public class ImagenService : IImagenService
         {
             throw new ArgumentException("Formato no válido");
         }
+    }
+
+
+
+    public async Task<string> GuardarImagenWC(string imagenWC)
+    {
+        var imagenBytes = Convert.FromBase64String(imagenWC.Split(',')[1]);
+        var rutaCarpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "imagenes");
+
+        if (!Directory.Exists(rutaCarpeta))
+        {
+            Directory.CreateDirectory(rutaCarpeta);
+        }
+
+        var nombreArchivo = $"captura_{DateTime.Now:yyyyMMddHHmmss}.png";
+        var rutaArchivo = Path.Combine(rutaCarpeta, nombreArchivo);
+
+        await System.IO.File.WriteAllBytesAsync(rutaArchivo, imagenBytes);
+
+        return nombreArchivo;
     }
 
     public string ObtenerPathImagen(string fileName, string webRootPath)
