@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.EntityFrameworkCore;
+using ReconocimientoEmocionesIA_Entidades.EF;
 using ReconocimientoEmocionesIA_Logica;
 using ReconocimientoEmocionesIA_Logica.Interfaces;
 using ReconocimientoEmocionesIA_Logica.Servicios;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,9 +14,13 @@ builder.Services.Configure<FormOptions>(options =>
 });
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<MemeGeneratorContext>();
 builder.Services.AddTransient<IImagenService, ImagenService>();
-builder.Services.AddSingleton<IReconocimientoEmocionesService, ReconocimientoEmocionesService>();
-builder.Services.AddSingleton<IMemeService, MemeService>();
+builder.Services.AddScoped<IReconocimientoEmocionesService, ReconocimientoEmocionesService>();
+builder.Services.AddScoped<IMemeService, MemeService>();
+
+
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
