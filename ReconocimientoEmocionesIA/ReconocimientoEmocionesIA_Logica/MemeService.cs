@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.EntityFrameworkCore;
 using ReconocimientoEmocionesIA_Entidades;
 using ReconocimientoEmocionesIA_Entidades.EF;
 using ReconocimientoEmocionesIA_Logica.Interfaces;
@@ -24,41 +25,29 @@ namespace ReconocimientoEmocionesIA_Logica
             Meme meme = new Meme();
             meme.Imagen= fileName;
             meme.Emociones = this.reconocimientoEmocionesService.ListarEmocionesDetectadas(File.ReadAllBytes(this.imagenService.ObtenerPathImagen(fileName, webRootPath)));
-            meme.Frase = this.ObtenerFrasesAleatorias();
+            meme.Frase = ObtenerFrasePorEmocion(meme.Emociones.First().Nombre);
 
             return meme;
         }
 
-        private string ObtenerFrasesAleatorias()
+
+        private string ObtenerFrasePorEmocion(string emocion)
         {
-            var result = this.ctx.Phrases.First();
-            
-            result.Description += "pepito";
+            return this.ctx.Phrases
+            .Where(x => x.IdEmotionNavigation.Name == emocion)
+            .AsEnumerable()
+            .OrderBy(e => Guid.NewGuid())
+            .First().Description;
+        }
 
-            var fraseNueva = new Phrase();
-
-            fraseNueva.Description = "soy nuevo";
-            fraseNueva.IdEmotion= 1;
-            fraseNueva.Average = 8;
-
-            this.ctx.Add(fraseNueva);
-
-            var fraseABorrar = this.ctx.Phrases.Where(x => x.IdPhrase == 2).First();
-
-            this.ctx.Remove(fraseABorrar);
-
-            this.ctx.SaveChanges();
-
-            return result.Description;
-
-            /*var _frases = new List<string>()
-            {
-                "Hola", "Adios", "Buen dia", "Buenas noches", "Buenas tardes", "Como estas", "Estoy triste", "Estoy feliz", "Estoy enojado", "Estoy sorprendido"
-            };
-            int index = new Random().Next(_frases.Count);
-                return _frases[index];*/
-
-
+        private void guardarMeme(string imagen)
+        {
+            //var memes = this.ctx.Meme;
+            //var meme = new Meme();
+            //meme.Imagen = imagen;
+            //meme.idFrase = 1
+            //memes.add(meme);
+            //Meme.savechanges();
         }
     }
 }
