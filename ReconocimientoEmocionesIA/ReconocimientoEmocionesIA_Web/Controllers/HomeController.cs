@@ -45,6 +45,10 @@ namespace ReconocimientoEmocionesIA_Web.Controllers
         {
 
             var result = this.memeService.Generar(fileName, this.hostingEnvironment.WebRootPath);
+            // result.Imagen = Path.Combine("imagenes", Path.GetFileName(result.Imagen));
+            // result.Imagen = Path.Combine("imagenes", Path.GetFileName(result.Imagen));
+            result.Imagen = Path.GetFileName(result.Imagen);
+           
 
             return View("Index", new MemeViewModel(result));
         }
