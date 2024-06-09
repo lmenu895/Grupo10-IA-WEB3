@@ -72,11 +72,11 @@ namespace ReconocimientoEmocionesIA_Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GuardarMeme(string fileName)
+        public async Task<IActionResult> GuardarMeme(string fileName, string emotion)
         {
             try
             {
-                //await this.imagenService.GuardarMemeEnBaseDeDatos(fileName, this.hostingEnvironment.WebRootPath);
+                //await this.imagenService.GuardarMeme(fileName);
                 return RedirectToAction("Index", new MemeViewModel { Imagen = fileName });
             }
             catch (Exception ex)
@@ -84,6 +84,5 @@ namespace ReconocimientoEmocionesIA_Web.Controllers
                 return StatusCode(500, $"Error al guardar el meme: {ex.Message}");
             }
         }
-
     }
 }
