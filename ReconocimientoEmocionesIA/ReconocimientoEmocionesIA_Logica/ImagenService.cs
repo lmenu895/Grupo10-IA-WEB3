@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using ReconocimientoEmocionesIA_Entidades;
+using System;
 
 namespace ReconocimientoEmocionesIA_Logica.Servicios;
 public interface IImagenService
@@ -10,6 +12,8 @@ public interface IImagenService
     public string ObtenerFrasesAleatorias();
 
     public string ObtenerPathImagen(string fileName, string webRootPath);
+
+    //Task GuardarMeme(string fileName, string webRootPath);
 }
 
 public class ImagenService : IImagenService
@@ -19,6 +23,10 @@ public class ImagenService : IImagenService
     {
         "Hola", "Adios", "Buen dia", "Buenas noches", "Buenas tardes", "Como estas", "Estoy triste", "Estoy feliz", "Estoy enojado", "Estoy sorprendido"
     };
+
+    public ImagenService()
+    {  
+    }
 
     public string GuardarImagen(IFormFile imagen, string webRootPath)
     {
@@ -76,4 +84,7 @@ public class ImagenService : IImagenService
         int index = ran.Next(_frases.Count);
         return _frases[index];
     }
+
+    
+    
 }
