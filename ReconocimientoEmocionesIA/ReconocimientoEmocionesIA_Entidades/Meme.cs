@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReconocimientoEmocionesIA_Entidades.EF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace ReconocimientoEmocionesIA_Entidades
     {
         public string Imagen { get; set; }
 
-        public string Frase { get; set; }
+        public Phrase Frase { get; set; }
         public int EmocionId { get; set; } 
         public int FraseId { get; set; }
 

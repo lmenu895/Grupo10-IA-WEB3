@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ReconocimientoEmocionesIA_Entidades.EF;
 
-//PM> Scaffold-DbContext "Server=localhost;Database=meme_generator;User=root;Password=admin;" MySql.EntityFrameworkCore -OutputDir EF
 public partial class MemeGeneratorContext : DbContext
 {
     public MemeGeneratorContext()
@@ -17,6 +16,8 @@ public partial class MemeGeneratorContext : DbContext
     }
 
     public virtual DbSet<Emotion> Emotions { get; set; }
+
+    public virtual DbSet<MemeImage> MemeImages { get; set; }
 
     public virtual DbSet<Phrase> Phrases { get; set; }
 
@@ -36,6 +37,32 @@ public partial class MemeGeneratorContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
+        });
+
+        modelBuilder.Entity<MemeImage>(entity =>
+        {
+            entity.HasKey(e => e.IdImage).HasName("PRIMARY");
+
+            entity.ToTable("meme_image");
+
+            entity.HasIndex(e => e.IdEmotion, "id_emotion");
+
+            entity.HasIndex(e => e.IdPhrase, "id_phrase");
+
+            entity.Property(e => e.IdImage).HasColumnName("id_image");
+            entity.Property(e => e.IdEmotion).HasColumnName("id_emotion");
+            entity.Property(e => e.IdPhrase).HasColumnName("id_phrase");
+            entity.Property(e => e.ImagePath)
+                .HasMaxLength(2000)
+                .HasColumnName("image_path");
+
+            entity.HasOne(d => d.IdEmotionNavigation).WithMany(p => p.MemeImages)
+                .HasForeignKey(d => d.IdEmotion)
+                .HasConstraintName("meme_image_ibfk_1");
+
+            entity.HasOne(d => d.IdPhraseNavigation).WithMany(p => p.MemeImages)
+                .HasForeignKey(d => d.IdPhrase)
+                .HasConstraintName("meme_image_ibfk_2");
         });
 
         modelBuilder.Entity<Phrase>(entity =>

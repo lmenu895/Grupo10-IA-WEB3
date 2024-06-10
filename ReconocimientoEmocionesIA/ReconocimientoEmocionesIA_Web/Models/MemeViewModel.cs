@@ -20,9 +20,9 @@ namespace ReconocimientoEmocionesIA_Web.Models
         public MemeViewModel(Meme meme)
         {
             this.Imagen = meme.Imagen;
-            this.Frase= meme.Frase;
-            this.EmocionId = meme.EmocionId;
-            this.FraseId = meme.FraseId;
+            this.FraseId = meme.Frase.IdPhrase;
+            this.EmocionId = meme.Frase.IdEmotion.Value;
+            this.Frase = meme.Frase.Description;
             this.Emociones = meme.Emociones.Select(x => new EmocionViewModel(x)).ToList();
         }
     }

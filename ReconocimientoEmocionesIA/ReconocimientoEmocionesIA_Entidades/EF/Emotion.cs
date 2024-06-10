@@ -9,5 +9,7 @@ public partial class Emotion
 
     public string Name { get; set; } = null!;
 
+    public virtual ICollection<MemeImage> MemeImages { get; set; } = new List<MemeImage>();
+
     public virtual ICollection<Phrase> Phrases { get; set; } = new List<Phrase>();
 }

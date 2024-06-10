@@ -76,7 +76,7 @@ namespace ReconocimientoEmocionesIA_Web.Controllers
         {
             try
             {
-                //await this.memeService.GuardarMeme(fileName, idEmotion, idPhrase);
+                var result = this.memeService.GuardarMeme(fileName, idEmotion, idPhrase);
                 return RedirectToAction("Index", new MemeViewModel { Imagen = fileName });
             }
             catch (Exception ex)

@@ -14,4 +14,6 @@ public partial class Phrase
     public int? Average { get; set; }
 
     public virtual Emotion? IdEmotionNavigation { get; set; }
+
+    public virtual ICollection<MemeImage> MemeImages { get; set; } = new List<MemeImage>();
 }

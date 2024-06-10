@@ -30,7 +30,7 @@ public class MemeService : IMemeService
         meme.Frase = ObtenerFrasePorEmocion(meme.Emociones.First().Nombre);
 
         var emocion = meme.Emociones.FirstOrDefault();
-        var frase = this.ObtenerFrasePorEmocion(emocion.Nombre);
+
 
         string imagePath = this.imagenService.ObtenerPathImagen(fileName, webRootPath);
 
@@ -41,7 +41,7 @@ public class MemeService : IMemeService
         using (Font font = new Font("Arial", 20, FontStyle.Bold, GraphicsUnit.Pixel))
         {
             // Medir el tamaño del texto
-            SizeF textSize = graphics.MeasureString(meme.Frase, font);
+            SizeF textSize = graphics.MeasureString(meme.Frase.Description, font);
             // Calcular la posición centrada horizontalmente y en la parte superior de la imagen
             PointF position = new PointF((image.Width - textSize.Width) / 2, 10); // Ajusta la separación desde el borde superior según tus necesidades
 
@@ -51,48 +51,62 @@ public class MemeService : IMemeService
             SolidBrush textBrush = new SolidBrush(Color.White);
 
             // Dibujar el borde sombreado
-            graphics.DrawString(meme.Frase, font, shadowBrush, position.X - 1, position.Y - 1);
-            graphics.DrawString(meme.Frase, font, shadowBrush, position.X + 1, position.Y - 1);
-            graphics.DrawString(meme.Frase, font, shadowBrush, position.X - 1, position.Y + 1);
-            graphics.DrawString(meme.Frase, font, shadowBrush, position.X + 1, position.Y + 1);
+            graphics.DrawString(meme.Frase.Description, font, shadowBrush, position.X - 1, position.Y - 1);
+            graphics.DrawString(meme.Frase.Description, font, shadowBrush, position.X + 1, position.Y - 1);
+            graphics.DrawString(meme.Frase.Description, font, shadowBrush, position.X - 1, position.Y + 1);
+            graphics.DrawString(meme.Frase.Description, font, shadowBrush, position.X + 1, position.Y + 1);
 
             // Dibujar el texto principal
-            graphics.DrawString(meme.Frase, font, textBrush, position);
+            graphics.DrawString(meme.Frase.Description, font, textBrush, position);
 
             // Sobrescribir la imagen original
-            image.Save(imagePath, ImageFormat.Png);
+            image.Save(imagePath, ImageFormat.Jpeg);
         }
 
         meme.Imagen = imagePath;
-        //meme.EmocionId = emocion.IdEmotion;
-        //meme.FraseId = frase.IdPhrase;
         return meme;
     }
 
     public bool GuardarMeme(string fileName, int idEmotion, int idPhrase)
     {
-        //var memes = this.ctx.Meme;
+        var memes = this.ctx.MemeImages;
 
-        /*var meme = new MemeImage
+        var meme = new MemeImage
         {
             ImagePath = fileName,
             IdEmotion = idEmotion,
             IdPhrase = idPhrase
-        };*/
+        };
 
-        //memes.add(meme);
-        //Meme.savechanges();
+        memes.Add(meme);
+        this.ctx.SaveChanges();
+
         return true;
     }
 
 
-    private string ObtenerFrasePorEmocion(string emocion)
+    private Phrase ObtenerFrasePorEmocion(string emocion)
     {
-        return this.ctx.Phrases
+        var frase =  this.ctx.Phrases
         .Where(x => x.IdEmotionNavigation.Name == emocion)
         .AsEnumerable()
         .OrderBy(e => Guid.NewGuid())
-        .First().Description;
+        .FirstOrDefault();
+
+        if (frase == null)
+        {
+          return this.ctx.Phrases
+        .Where(x => x.IdEmotionNavigation.Name == "felicidad")
+        .AsEnumerable()
+        .OrderBy(e => Guid.NewGuid())
+        .FirstOrDefault();
+
+        }
+
+        return frase;
+
+
+
     }
 
 }
