@@ -68,7 +68,8 @@
     <form id="guardarMemeForm" method="post" asp-controller="Home" asp-action="GuardarMeme">
         <div class="form-group">
             <input type="hidden" class="form-control" value="@Model.Imagen" id="imagenGuardar" name="fileName" required>
-            <input type="hidden" class="form-control" value="@Model.Frase" id="frase" name="frase" required>
+            <input type="hidden" class="form-control" value="@Model.EmocionId" id="idEmotion" name="idEmotion" required>
+            <input type="hidden" class="form-control" value="@Model.FraseId" id="idPhrase" name="idPhrase" required>
         </div>
         <button type="submit" class="btn btn-success">Guardar Meme</button>
     </form>

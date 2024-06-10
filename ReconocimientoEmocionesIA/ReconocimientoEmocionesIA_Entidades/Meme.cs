@@ -11,6 +11,8 @@ namespace ReconocimientoEmocionesIA_Entidades
         public string Imagen { get; set; }
 
         public string Frase { get; set; }
+        public int EmocionId { get; set; } 
+        public int FraseId { get; set; }
 
         public List<Emocion> Emociones { get; set; }
     }

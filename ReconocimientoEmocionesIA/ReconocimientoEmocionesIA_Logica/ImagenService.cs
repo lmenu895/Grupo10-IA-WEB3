@@ -13,7 +13,6 @@ public interface IImagenService
 
     public string ObtenerPathImagen(string fileName, string webRootPath);
 
-    public Task GuardarMeme(string fileName, int? emotionId, int? phraseId);
 }
 
 public class ImagenService : IImagenService
@@ -85,18 +84,4 @@ public class ImagenService : IImagenService
         return _frases[index];
     }
 
-    public async Task GuardarMeme(string fileName, int? emotionId, int? phraseId)
-    {
-        /*var memes = this.ctx.Meme;
-         var meme = new Meme
-        {
-            FileName = fileName,
-            EmotionId = emotionId,
-            PhraseId = phraseId
-        };
-
-        memes.Add(meme);
-        await _context.SaveChangesAsync();*/
-        await Task.CompletedTask;
-    }
 }
