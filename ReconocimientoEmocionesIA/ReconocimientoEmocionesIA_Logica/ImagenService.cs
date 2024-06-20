@@ -1,28 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using ReconocimientoEmocionesIA_Entidades;
+using ReconocimientoEmocionesIA_Logica.Interfaces;
 using System;
 
 namespace ReconocimientoEmocionesIA_Logica.Servicios;
-public interface IImagenService
-{
-    string GuardarImagen(IFormFile imagen, string webRootPath);
-
-    public Task<string> GuardarImagenWC(string imagenWC);
-
-    public string ObtenerFrasesAleatorias();
-
-    public string ObtenerPathImagen(string fileName, string webRootPath);
-
-}
 
 public class ImagenService : IImagenService
 {
-    private static Random ran = new Random();
-    private List<string> _frases = new List<string>()
-    {
-        "Hola", "Adios", "Buen dia", "Buenas noches", "Buenas tardes", "Como estas", "Estoy triste", "Estoy feliz", "Estoy enojado", "Estoy sorprendido"
-    };
-
     public ImagenService()
     {  
     }
@@ -77,11 +61,4 @@ public class ImagenService : IImagenService
         var uploadsFolder = Path.Combine(webRootPath, "imagenes");
         return Path.Combine(uploadsFolder, fileName);
     }
-
-    public string ObtenerFrasesAleatorias()
-    {
-        int index = ran.Next(_frases.Count);
-        return _frases[index];
-    }
-
 }
