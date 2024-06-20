@@ -6,6 +6,13 @@
 
 <h1>Generador de MEMES</h1>
 
+<div id="overlay" class="overlay hidden">
+    <div class="spinner-container">
+        <div class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></div>
+        <span>Generando MEME ...</span>
+    </div>
+</div>
+
 <video id="video" width="640" height="480" autoplay></video>
 <button class="btn btn-primary" id="capture">Realizar Captura</button>
 <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
@@ -15,20 +22,14 @@
         <label for="imageUpload">Subir imagen</label>
         <input type="file" class="form-control" id="imageUpload" name="imagen" accept="image/*" required>
     </div>
-    <button type="submit" class="btn btn-primary">Cargar Imagen</button>
+    <button type="submit" class="btn btn-primary">MEME por Imagen</button>
 </form>
 
 
-<div class="contenedor-imagen">
-    <img class="imagen" src="@Url.Content("~/imagenes/" + Model.Imagen)" width="640" height="480"  alt="Imagen" />
-</div>
-
-<form id="generadorMemeForm" method="post" asp-controller="Home" asp-action="GenerarMeme">
     <div class="form-group">
         <input type="hidden" class="form-control" value="@Model.Imagen" id="imagenMeme" name="fileName" required>
     </div>
-    <button type="submit" class="btn btn-primary">Generar Meme</button>
-</form>
+
 
 
 @if (Model != null && Model.Emociones != null)
@@ -60,10 +61,8 @@
 </table>
 
     <div class="contenedor-imagen">
-        
-        <img class="imagen" src="@Url.Content("~/imagenes/" + Model.Imagen)" alt="Imagen" />
-        @* <div class="texto-superior">@Model.Frase</div> *@
-    </div>
+         <img class="imagen" src="@Url.Content("~/imagenes/" + Model.Imagen)" alt="Imagen" />
+     </div>
 
     <form id="guardarMemeForm" method="post" asp-controller="Home" asp-action="GuardarMeme">
         <div class="form-group">

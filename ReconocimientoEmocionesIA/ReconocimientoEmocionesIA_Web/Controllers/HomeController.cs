@@ -32,7 +32,7 @@ namespace ReconocimientoEmocionesIA_Web.Controllers
             {
                 var fileName = this.imagenService.GuardarImagen(imagen, this.hostingEnvironment.WebRootPath);
 
-                return RedirectToAction("Index", new MemeViewModel { Imagen = fileName });
+                return RedirectToAction("GenerarMeme", new { fileName });
             }
             catch (ArgumentException)
             {
@@ -40,13 +40,11 @@ namespace ReconocimientoEmocionesIA_Web.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult GenerarMeme(string fileName)
         {
 
             var result = this.memeService.Generar(fileName, this.hostingEnvironment.WebRootPath);
-            // result.Imagen = Path.Combine("imagenes", Path.GetFileName(result.Imagen));
-            // result.Imagen = Path.Combine("imagenes", Path.GetFileName(result.Imagen));
             result.Imagen = Path.GetFileName(result.Imagen);
            
 
@@ -56,18 +54,32 @@ namespace ReconocimientoEmocionesIA_Web.Controllers
 
 
 
+        //[HttpPost]
+        //public async Task<IActionResult> Capturar([FromBody] ImagenViewModel imagenData)
+        //{
+        //    try
+        //    {
+        //        var fileName = this.imagenService.GuardarImagenWC(imagenData.ImageData).Result;
+        //        return Ok(new MemeViewModel { Imagen = fileName });
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, $"Error al guardar la imagen: {ex.Message}");
+        //    }
+        //}
+
         [HttpPost]
         public async Task<IActionResult> Capturar([FromBody] ImagenViewModel imagenData)
         {
             try
             {
                 var fileName = this.imagenService.GuardarImagenWC(imagenData.ImageData).Result;
-                return Ok(new MemeViewModel { Imagen = fileName });
-
+                return RedirectToAction("GenerarMeme", new { fileName });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Error al guardar la imagen: {ex.Message}");
+                return View("Error");
             }
         }
 
