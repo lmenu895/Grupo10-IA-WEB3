@@ -1,0 +1,23 @@
+﻿@model List<ReconocimientoEmocionesIA_Entidades.EF.MemeImage>
+
+<h1 class="my-4">Galeria de Imagenes</h1>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-info text-center" role="alert">
+        Todavía no hay memes para mostrar :(
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var meme in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="@Url.Content("~/imagenes/" + meme.ImagePath)" class="card-img-top" alt="...">
+                </div>
+            </div>
+        }
+    </div>
+}

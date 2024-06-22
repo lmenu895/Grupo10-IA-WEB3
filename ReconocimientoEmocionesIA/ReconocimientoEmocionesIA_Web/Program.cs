@@ -18,7 +18,7 @@ builder.Services.AddScoped<MemeGeneratorContext>();
 builder.Services.AddTransient<IImagenService, ImagenService>();
 builder.Services.AddScoped<IReconocimientoEmocionesService, ReconocimientoEmocionesService>();
 builder.Services.AddScoped<IMemeService, MemeService>();
-
+builder.Services.AddScoped<IGaleriaService, GaleriaService>();
 
 
 // Add services to the container.
