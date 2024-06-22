@@ -60,8 +60,8 @@
 </table>
 
     <div class="contenedor-imagen">
-        
-        <img class="imagen" src="@Url.Content("~/imagenes/" + Model.Imagen)" alt="Imagen" />
+
+        <img class="imagen" id="finalImage" src="@Url.Content("~/imagenes/" + Model.Imagen)" alt="Imagen" />
         @* <div class="texto-superior">@Model.Frase</div> *@
     </div>
 
@@ -74,4 +74,7 @@
         <button type="submit" class="btn btn-success">Guardar Meme</button>
     </form>
 
+    <button class="btn btn-success" id="downloadImage">Descargar Imagen</button>
+
 }
+
