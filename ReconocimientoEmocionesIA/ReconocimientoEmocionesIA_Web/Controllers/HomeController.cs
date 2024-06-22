@@ -46,40 +46,21 @@ namespace ReconocimientoEmocionesIA_Web.Controllers
 
             var result = this.memeService.Generar(fileName, this.hostingEnvironment.WebRootPath);
             result.Imagen = Path.GetFileName(result.Imagen);
-           
 
-            return View("Index", new MemeViewModel(result));
+            return Ok(result);
         }
-
-
-
-
-        //[HttpPost]
-        //public async Task<IActionResult> Capturar([FromBody] ImagenViewModel imagenData)
-        //{
-        //    try
-        //    {
-        //        var fileName = this.imagenService.GuardarImagenWC(imagenData.ImageData).Result;
-        //        return Ok(new MemeViewModel { Imagen = fileName });
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"Error al guardar la imagen: {ex.Message}");
-        //    }
-        //}
 
         [HttpPost]
         public async Task<IActionResult> Capturar([FromBody] ImagenViewModel imagenData)
         {
             try
             {
-                var fileName = this.imagenService.GuardarImagenWC(imagenData.ImageData).Result;
-                return RedirectToAction("GenerarMeme", new { fileName });
+                var fileName = await this.imagenService.GuardarImagenWC(imagenData.ImageData);
+                return Ok(new { fileName });
             }
             catch (Exception ex)
             {
-                return View("Error");
+                return StatusCode(500, "Internal server error");
             }
         }
 

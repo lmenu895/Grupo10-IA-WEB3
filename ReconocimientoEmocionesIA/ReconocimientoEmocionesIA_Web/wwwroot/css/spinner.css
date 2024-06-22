@@ -1,8 +1,4 @@
-﻿.hidden {
-    display: none;
-}
-
-.overlay {
+﻿.overlay {
     position: fixed;
     top: 0;
     left: 0;
