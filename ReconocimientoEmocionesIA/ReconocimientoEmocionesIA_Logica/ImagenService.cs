@@ -11,7 +11,7 @@ public class ImagenService : IImagenService
     {  
     }
 
-    public string GuardarImagen(IFormFile imagen, string webRootPath)
+    public async Task<string> GuardarImagen(IFormFile imagen, string webRootPath)
     {
         if (imagen != null && imagen.Length > 0)
         {

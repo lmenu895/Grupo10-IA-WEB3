@@ -4,7 +4,7 @@ namespace ReconocimientoEmocionesIA_Logica.Interfaces
 {
     public interface IImagenService
     {
-        string GuardarImagen(IFormFile imagen, string webRootPath);
+        Task<string> GuardarImagen(IFormFile imagen, string webRootPath);
 
         public Task<string> GuardarImagenWC(string imagenWC);
 

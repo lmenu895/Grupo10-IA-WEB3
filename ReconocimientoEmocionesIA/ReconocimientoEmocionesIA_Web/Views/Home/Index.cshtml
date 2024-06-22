@@ -17,12 +17,12 @@
 <button class="btn btn-primary" id="capture">Realizar Captura</button>
 <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
 
-<form id="uploadForm" method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="GenerarImg">
+<form id="uploadForm">
     <div class="form-group">
         <label for="imageUpload">Subir imagen</label>
         <input type="file" class="form-control" id="imageUpload" name="imagen" accept="image/*" required>
     </div>
-    <button type="submit" class="btn btn-primary">MEME por Imagen</button>
+    <button class="btn btn-primary" id="buttonImage">GenerarMeme</button>
 </form>
 
 

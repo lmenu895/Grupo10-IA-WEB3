@@ -26,17 +26,16 @@ namespace ReconocimientoEmocionesIA_Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult GenerarImg(IFormFile imagen)
+        public async Task<IActionResult> GenerarImg(IFormFile imagenData)
         {
             try
             {
-                var fileName = this.imagenService.GuardarImagen(imagen, this.hostingEnvironment.WebRootPath);
-
-                return RedirectToAction("GenerarMeme", new { fileName });
+                var fileName = await this.imagenService.GuardarImagen(imagenData, this.hostingEnvironment.WebRootPath);
+                return Ok(new { fileName });
             }
-            catch (ArgumentException)
+            catch (Exception ex)
             {
-                return View("Error");
+                return StatusCode(500, "Internal server error");
             }
         }
 
