@@ -2,7 +2,7 @@
 
 <h1 class="my-4">Galeria de Imagenes</h1>
 
-@if (Model == null || Model.Any())
+@if (Model == null || !Model.Any())
 {
     <div class="alert alert-info text-center" role="alert">
         Todavía no hay memes para mostrar :(
