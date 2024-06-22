@@ -26,7 +26,6 @@ function generarMeme(fileName)
 
             const queryString = params.toString();
 
-            console.log(queryString);
             window.location.href = 'https://localhost:7218/Home/Index?' + queryString;
             spinner.style.display = "none";
         })
@@ -50,19 +49,15 @@ function realizarAccionFetch(api, imageData, contentType) {
 
     fetch(api, options)
         .then(response => {
-            console.log('Response status:', response.status);
-            console.log('Response status text:', response.statusText);
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
             }
             return response.json();
         })
         .then(data => {
-            console.log('Data received:', data);
             generarMeme(data.fileName);
         })
         .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
             spinner.style.display = "none";
         });
 }
