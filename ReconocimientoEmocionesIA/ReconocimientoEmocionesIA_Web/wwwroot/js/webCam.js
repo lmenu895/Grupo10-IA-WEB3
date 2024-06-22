@@ -19,7 +19,5 @@ navigator.mediaDevices.getUserMedia({ video: true })
 captureButton.addEventListener('click', () => {
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
     const imageData = canvas.toDataURL('image/png');
-
-    spinner.style.display = "inline-flex";
     realizarAccionFetch('/Home/Capturar', JSON.stringify({ imageData }), "application/json");
 });

@@ -36,6 +36,7 @@ function generarMeme(fileName)
 }
 
 function realizarAccionFetch(api, imageData, contentType) {
+    spinner.style.display = "inline-flex";
     const options = {
         method: 'POST',
         body: imageData
