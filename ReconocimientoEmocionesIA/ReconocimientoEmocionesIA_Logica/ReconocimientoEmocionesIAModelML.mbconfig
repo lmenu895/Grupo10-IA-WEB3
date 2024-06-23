@@ -3,7 +3,7 @@
   "DataSource": {
     "Type": "Folder",
     "Version": 1,
-    "FolderPath": "C:\\Users\\Fer\\Downloads\\emocionesData"
+    "FolderPath": "C:\\Users\\Usuario\\Desktop\\testIA"
   },
   "Environment": {
     "Type": "LocalCPU",
@@ -17,8 +17,8 @@
         "Version": 1,
         "Type": "Trial",
         "TrainerName": "ImageClassificationMulti",
-        "Score": 0.50604838709677424,
-        "RuntimeInSeconds": 5246.063,
+        "Score": 0.2,
+        "RuntimeInSeconds": 31.257,
         "Parameter": {
           "_SCHEMA_": "e0 * e1 * e2",
           "e0": {
@@ -48,13 +48,12 @@
     },
     "Schema": "e0 * e1 * e2",
     "MetricName": "MicroAccuracy",
-    "ModelFilePath": "C:\\Users\\Fer\\source\\repos\\DeteccionEmociones\\MLModel1_ConsoleApp1\\EmocionesLiteML.mlnet"
+    "ModelFilePath": "C:\\Users\\Usuario\\Desktop\\VersionFinalRama\\Grupo10-IA-WEB3\\ReconocimientoEmocionesIA\\ReconocimientoEmocionesIA_Logica\\ReconocimientoEmocionesIAModelML.mlnet"
   },
   "Type": "TrainingConfig",
-  "Version": 5,
+  "Version": 4,
   "TrainingOption": {
-    "Version": 2,
-    "Subsampling": false,
+    "Version": 1,
     "Type": "ClassificationTrainingOption",
     "TrainingTime": 2147483647,
     "ValidationOption": {

@@ -48,7 +48,7 @@ namespace ReconocimientoEmocionesIA_Logica
         }
 
         /// <summary>
-        /// Retrain model using the pipeline generated as part of the training process.
+        /// Retrains model using the pipeline generated as part of the training process.
         /// </summary>
         /// <param name="mlContext"></param>
         /// <param name="trainData"></param>
@@ -60,6 +60,7 @@ namespace ReconocimientoEmocionesIA_Logica
 
             return model;
         }
+
 
         /// <summary>
         /// build the pipeline that is used from model builder. Use this function to retrain model.
