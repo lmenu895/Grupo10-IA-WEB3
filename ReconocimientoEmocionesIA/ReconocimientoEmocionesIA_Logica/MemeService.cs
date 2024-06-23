@@ -25,27 +25,7 @@ public class MemeService : IMemeService
         Meme meme = new Meme();
         meme.Emociones = this.reconocimientoEmocionesService.ListarEmocionesDetectadas(File.ReadAllBytes(imagenPath));
         meme.Frase = ObtenerFrasePorEmocion(meme.Emociones.First().Nombre);
-
-        var emocion = meme.Emociones.FirstOrDefault();
-
-
-        string imagePath = this.imagenService.ObtenerPathImagen(fileName, webRootPath);
-
-        // Crear una copia de la imagen en memoria para evitar problemas de acceso
-        using (MemoryStream memoryStream = new MemoryStream(File.ReadAllBytes(imagePath)))
-        using (Image image = Image.FromStream(memoryStream))
-        using (Graphics graphics = Graphics.FromImage(image))
-        using (Font font = new Font("Arial", 20, FontStyle.Bold, GraphicsUnit.Pixel))
-        {
-            // Medir el tamaño del texto
-            SizeF textSize = graphics.MeasureString(meme.Frase.Description, font);
-            // Calcular la posición centrada horizontalmente y en la parte superior de la imagen
-            PointF position = new PointF((image.Width - textSize.Width) / 2, 10); // Ajusta la separación desde el borde superior según tus necesidades
-
-            // Crear el pincel para el borde sombreado
-            SolidBrush shadowBrush = new SolidBrush(Color.Black);
-            // Crear el pincel para el texto
-            SolidBrush textBrush = new SolidBrush(Color.White);
+        meme.Imagen = this.EscribirFraseEnImagen(imagenPath, meme.Frase.Description);
 
         return meme;
     }
@@ -104,7 +84,7 @@ public class MemeService : IMemeService
             using (Font font = new Font("Arial", fontSize, FontStyle.Bold, GraphicsUnit.Pixel))
             {
                 // Medir el tamaño del texto
-                SizeF textSize = graphics.MeasureString(meme.Frase.Description, font);
+                SizeF textSize = graphics.MeasureString(frase, font);
                 // Calcular la posición centrada horizontalmente y en la parte superior de la imagen
                 PointF position = new PointF((image.Width - textSize.Width) / 2, 10); // Ajusta la separación desde el borde superior según tus necesidades
 
@@ -114,13 +94,13 @@ public class MemeService : IMemeService
                 SolidBrush textBrush = new SolidBrush(Color.White);
 
                 // Dibujar el borde sombreado
-                graphics.DrawString(meme.Frase.Description, font, shadowBrush, position.X - 1, position.Y - 1);
-                graphics.DrawString(meme.Frase.Description, font, shadowBrush, position.X + 1, position.Y - 1);
-                graphics.DrawString(meme.Frase.Description, font, shadowBrush, position.X - 1, position.Y + 1);
-                graphics.DrawString(meme.Frase.Description, font, shadowBrush, position.X + 1, position.Y + 1);
+                graphics.DrawString(frase, font, shadowBrush, position.X - 1, position.Y - 1);
+                graphics.DrawString(frase, font, shadowBrush, position.X + 1, position.Y - 1);
+                graphics.DrawString(frase, font, shadowBrush, position.X - 1, position.Y + 1);
+                graphics.DrawString(frase, font, shadowBrush, position.X + 1, position.Y + 1);
 
                 // Dibujar el texto principal
-                graphics.DrawString(meme.Frase.Description, font, textBrush, position);
+                graphics.DrawString(frase, font, textBrush, position);
 
                 // Obtener el formato de la imagen a partir de la extensión del archivo
                 ImageFormat imageFormat = GetImageFormat(imagePath);
@@ -133,6 +113,21 @@ public class MemeService : IMemeService
 
         return imagePath;
     }
-    }
 
+    private ImageFormat GetImageFormat(string imagePath)
+    {
+        string extension = Path.GetExtension(imagePath).ToLowerInvariant();
+        switch (extension)
+        {
+            case ".bmp":
+                return ImageFormat.Bmp;
+            case ".png":
+                return ImageFormat.Png;
+            case ".tiff":
+            case ".tif":
+                return ImageFormat.Tiff;
+            default:
+                return ImageFormat.Jpeg;
+        }
+    }
 }
