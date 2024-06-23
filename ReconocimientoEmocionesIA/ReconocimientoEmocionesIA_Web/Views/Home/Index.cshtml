@@ -39,15 +39,19 @@
             <img class="imagen" id="finalImage" src="@Url.Content("~/imagenes/" + Model.Imagen)" alt="Imagen" />
             $1$ <div>@Model.Frase</div> #1#
         </div>*@
-    <div style="width: 39%; height: 340px; margin-right: 10px">
+    <div style="width: 39%; height: 340px; margin-right: 20px">
         @*<div style="height: 100%;">
 
             <img class="imagen" id="finalImage" src="@Url.Content("~/imagenes/" + Model.Imagen)" alt="Imagen" style="width: 100%; height: 100%; object-fit: contain;">
             $1$ <div>@Model.Frase</div> #1#
         </div>*@
-        <div style="height: 328px; border: 2px solid #ccc; padding: 5px; margin-top: 1.7em">
-            <img class="imagen" id="finalImage" src="@Url.Content("~/imagenes/" + Model.Imagen)" alt="Imagen" style="width: 100%; height: 100%; object-fit: contain;">
-            @* <div>@Model.Frase</div> *@
+
+        <div style="height: 328px; border: 2px solid #ccc; padding: 5px; margin-top: 1.7em; position: relative; overflow: hidden;">
+            <img class="imagen" id="finalImage"
+                 src="@Url.Content("~/imagenes/" + Model.Imagen)"
+                 alt="@Model.Frase"
+                 onerror="this.onerror=null; this.src='@Url.Content("~/imagenes/logo.png")';"
+                 style="width: 100%; height: 100%; object-fit: contain;">
         </div>
 
         <form id="guardarMemeForm" method="post" asp-controller="Home" asp-action="GuardarMeme">
