@@ -61,8 +61,10 @@
 </table>
 
     <div class="contenedor-imagen">
-         <img class="imagen" src="@Url.Content("~/imagenes/" + Model.Imagen)" alt="Imagen" />
-     </div>
+
+        <img class="imagen" id="finalImage" src="@Url.Content("~/imagenes/" + Model.Imagen)" alt="Imagen" />
+        @* <div>@Model.Frase</div> *@
+    </div>
 
     <form id="guardarMemeForm" method="post" asp-controller="Home" asp-action="GuardarMeme">
         <div class="form-group">
@@ -73,4 +75,7 @@
         <button type="submit" class="btn btn-success">Guardar Meme</button>
     </form>
 
+    <button class="btn btn-success" id="downloadImage">Descargar Imagen</button>
+
 }
+
