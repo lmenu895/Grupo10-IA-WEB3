@@ -12,18 +12,153 @@
         <span>Generando MEME ...</span>
     </div>
 </div>
+<div style="display: flex; height: 480px">
+    <div style="width: 39%; margin-right: 20px; margin-top: 1.7em">
+        <div style=";border: 2px solid #ccc; padding: 5px; height: 328px">
+            <video id="video" width="100%" height="100%" autoplay style="padding: 0; margin: 0"></video>
+        </div>
+        <div style="display: flex; margin-top: 30px">
+            <button class="btn btn-primary" id="capture" style="width: 65%; margin-right: 20px; height: 38px">Realizar Captura</button>
+            <form id="uploadForm">
+                <div class="form-group">
+                    @*<label for="imageUpload">Subir imagen</label>*@
+                    <input type="file" class="form-control" id="imageUpload" name="imagen" accept="image/*" required>
+                </div>
 
-<video id="video" width="640" height="480" autoplay></video>
-<button class="btn btn-primary" id="capture">Realizar Captura</button>
-<canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+            </form>
+        </div>
+        <div>
+            <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+        </div>
+        @*<button class="btn btn-primary" id="buttonImage">GenerarMeme</button>*@
 
-<form id="uploadForm">
-    <div class="form-group">
-        <label for="imageUpload">Subir imagen</label>
-        <input type="file" class="form-control" id="imageUpload" name="imagen" accept="image/*" required>
     </div>
-    <button class="btn btn-primary" id="buttonImage">GenerarMeme</button>
-</form>
+    @*<div style="width: 40%; height: 380px">
+        <div>
+
+            <img class="imagen" id="finalImage" src="@Url.Content("~/imagenes/" + Model.Imagen)" alt="Imagen" />
+            $1$ <div>@Model.Frase</div> #1#
+        </div>*@
+    <div style="width: 39%; height: 340px; margin-right: 10px">
+        @*<div style="height: 100%;">
+
+            <img class="imagen" id="finalImage" src="@Url.Content("~/imagenes/" + Model.Imagen)" alt="Imagen" style="width: 100%; height: 100%; object-fit: contain;">
+            $1$ <div>@Model.Frase</div> #1#
+        </div>*@
+        <div style="height: 328px; border: 2px solid #ccc; padding: 5px; margin-top: 1.7em">
+            <img class="imagen" id="finalImage" src="@Url.Content("~/imagenes/" + Model.Imagen)" alt="Imagen" style="width: 100%; height: 100%; object-fit: contain;">
+            @* <div>@Model.Frase</div> *@
+        </div>
+
+        <form id="guardarMemeForm" method="post" asp-controller="Home" asp-action="GuardarMeme">
+            <div class="form-group">
+                <input type="hidden" class="form-control" value="@Model.Imagen" id="imagenGuardar" name="fileName" required>
+                <input type="hidden" class="form-control" value="@Model.EmocionId" id="idEmotion" name="idEmotion" required>
+                <input type="hidden" class="form-control" value="@Model.FraseId" id="idPhrase" name="idPhrase" required>
+            </div>
+            <div style="display: flex; margin-top: 30px">
+                <button type="submit" class="btn btn-success" style="height: 38px; margin-right: 20px; width: 48%">Guardar Meme</button>
+                <button class="btn btn-success" id="downloadImage" style="height: 38px; width: 48%">Descargar Imagen</button>
+            </div>
+           
+        </form>
+
+       
+    </div>
+    @*<div style="width: 20%">
+        if (Model != null && Model.Emociones != null)
+        {
+        <table class="table">
+            <thead>
+            <tr>
+                <th>
+                    Emoción
+                </th>
+                <th>
+                    %
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Emociones)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Porcentaje)%
+                </td>
+            </tr>
+            }
+            </tbody>
+        </table>
+    </div>*@
+    
+    
+    @* <div style="width: 20%"> *@
+    @*     @if (Model != null && Model.Emociones != null) *@
+    @*     { *@
+    @*     <table class="table"> *@
+    @*         <thead> *@
+    @*         <tr> *@
+    @*             <th> *@
+    @*                 Emoción *@
+    @*             </th> *@
+    @*             <th> *@
+    @*                 % *@
+    @*             </th> *@
+    @*         </tr> *@
+    @*         </thead> *@
+    @*         <tbody> *@
+    @*         @foreach (var item in Model.Emociones) *@
+    @*         { *@
+    @*         <tr> *@
+    @*             <td> *@
+    @*                 @Html.DisplayFor(modelItem => item.Nombre) *@
+    @*             </td> *@
+    @*             <td> *@
+    @*                 @Html.DisplayFor(modelItem => item.Porcentaje)% *@
+    @*             </td> *@
+    @*         </tr> *@
+    @*         } *@
+    @*         </tbody> *@
+    @*     </table> *@
+    @*     } *@
+    @*     else *@
+    @*     { *@
+    @*     <p></p> *@
+    @*     } *@
+    @* </div> *@
+
+    <div style="width: 20%; font-family: Arial, sans-serif; text-align: center; margin-top: 30px">
+        <h2 style="margin-bottom: 15px;">Emociones</h2>
+        @if (Model != null && Model.Emociones != null && Model.Emociones.Any())
+        {
+        <div>
+            <div style="border: 2px solid black; padding: 10px; margin-bottom: 10px; font-size: 24px; font-weight: bold;">
+                @Model.Emociones[0].Nombre
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                @for (int i = 1; i < Model.Emociones.Count; i++)
+                {
+                <div style="border: 2px solid black; padding: 5px; font-size: 16px; width: 70%;">
+                    @Model.Emociones[i].Nombre
+                </div>
+                }
+            </div>
+        </div>
+        }
+        else
+        {
+        <p>No hay emociones disponibles.</p>
+        }
+    </div>
+</div>
+
+
+
+
 
 
     <div class="form-group">
@@ -60,22 +195,7 @@
     </tbody>
 </table>
 
-    <div class="contenedor-imagen">
-
-        <img class="imagen" id="finalImage" src="@Url.Content("~/imagenes/" + Model.Imagen)" alt="Imagen" />
-        @* <div>@Model.Frase</div> *@
-    </div>
-
-    <form id="guardarMemeForm" method="post" asp-controller="Home" asp-action="GuardarMeme">
-        <div class="form-group">
-            <input type="hidden" class="form-control" value="@Model.Imagen" id="imagenGuardar" name="fileName" required>
-            <input type="hidden" class="form-control" value="@Model.EmocionId" id="idEmotion" name="idEmotion" required>
-            <input type="hidden" class="form-control" value="@Model.FraseId" id="idPhrase" name="idPhrase" required>
-        </div>
-        <button type="submit" class="btn btn-success">Guardar Meme</button>
-    </form>
-
-    <button class="btn btn-success" id="downloadImage">Descargar Imagen</button>
+    
 
 }
 
