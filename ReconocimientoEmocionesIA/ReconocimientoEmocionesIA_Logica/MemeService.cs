@@ -71,7 +71,6 @@ public class MemeService : IMemeService
 
     private string EscribirFraseEnImagen(string imagePath, string frase)
     {
-        // Crear una copia de la imagen en memoria para evitar problemas de acceso
         using (MemoryStream memoryStream = new MemoryStream(File.ReadAllBytes(imagePath)))
         using (Image image = Image.FromStream(memoryStream))
         using (Graphics graphics = Graphics.FromImage(image))
