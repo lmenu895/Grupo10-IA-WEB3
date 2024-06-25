@@ -50,23 +50,11 @@ public class MemeService : IMemeService
 
     private Phrase ObtenerFrasePorEmocion(string emocion)
     {
-        var frase = this.ctx.Phrases
+         return this.ctx.Phrases
         .Where(x => x.IdEmotionNavigation.Name == emocion)
         .AsEnumerable()
         .OrderBy(e => Guid.NewGuid())
-        .FirstOrDefault();
-
-        if (frase == null)
-        {
-            return this.ctx.Phrases
-          .Where(x => x.IdEmotionNavigation.Name == "felicidad")
-          .AsEnumerable()
-          .OrderBy(e => Guid.NewGuid())
-          .FirstOrDefault();
-
-        }
-
-        return frase;
+        .First();
     }
 
     private string EscribirFraseEnImagen(string imagePath, string frase)
