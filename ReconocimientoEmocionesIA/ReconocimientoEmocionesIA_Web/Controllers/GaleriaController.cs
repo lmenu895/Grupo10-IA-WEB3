@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using ReconocimientoEmocionesIA_Entidades.EF;
+using ReconocimientoEmocionesIA_Logica.Interfaces;
 
 public class GaleriaController : Controller
 {
