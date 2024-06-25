@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using ReconocimientoEmocionesIA_Entidades;
 using ReconocimientoEmocionesIA_Logica.Interfaces;
-using System;
 
 namespace ReconocimientoEmocionesIA_Logica.Servicios;
 

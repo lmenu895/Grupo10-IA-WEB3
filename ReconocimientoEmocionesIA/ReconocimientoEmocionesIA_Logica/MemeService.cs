@@ -75,41 +75,34 @@ public class MemeService : IMemeService
         using (Image image = Image.FromStream(memoryStream))
         using (Graphics graphics = Graphics.FromImage(image))
         {
-            // Calcular el tamaño de la fuente en función de la resolución de la imagen
-            int baseFontSize = 100; // Tamaño base para una resolución estándar
-            float fontSize = baseFontSize * (image.Width / 1920f); // Ajustar proporcionalmente al ancho de la imagen
+            int baseFontSize = 100;
+            float fontSize = baseFontSize * (image.Width / 1920f);
 
-            // Crear la fuente con el tamaño calculado
             using (Font font = new Font("Arial", fontSize, FontStyle.Bold, GraphicsUnit.Pixel))
             {
-                // Medir el tamaño del texto
                 SizeF textSize = graphics.MeasureString(frase, font);
-                // Calcular la posición centrada horizontalmente y en la parte superior de la imagen
-                PointF position = new PointF((image.Width - textSize.Width) / 2, 10); // Ajusta la separación desde el borde superior según tus necesidades
+                PointF position = new PointF((image.Width - textSize.Width) / 2, 10); 
 
-                // Crear el pincel para el borde sombreado
                 SolidBrush shadowBrush = new SolidBrush(Color.Black);
-                // Crear el pincel para el texto
+
                 SolidBrush textBrush = new SolidBrush(Color.White);
 
-                // Dibujar el borde sombreado
                 graphics.DrawString(frase, font, shadowBrush, position.X - 1, position.Y - 1);
-                graphics.DrawString(frase, font, shadowBrush, position.X + 1, position.Y - 1);
+                graphics.DrawString(frase,
+                                    font,
+                                    shadowBrush,
+                                    position.X + 1,
+                                    position.Y - 1);
                 graphics.DrawString(frase, font, shadowBrush, position.X - 1, position.Y + 1);
                 graphics.DrawString(frase, font, shadowBrush, position.X + 1, position.Y + 1);
 
-                // Dibujar el texto principal
                 graphics.DrawString(frase, font, textBrush, position);
 
-                // Obtener el formato de la imagen a partir de la extensión del archivo
                 ImageFormat imageFormat = GetImageFormat(imagePath);
 
-                // Sobrescribir la imagen original
                 image.Save(imagePath, imageFormat);
             }
         }
-
-
         return imagePath;
     }
 

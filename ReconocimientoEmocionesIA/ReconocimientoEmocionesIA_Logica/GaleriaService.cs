@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using ReconocimientoEmocionesIA_Entidades.EF;
+﻿using ReconocimientoEmocionesIA_Entidades.EF;
+using ReconocimientoEmocionesIA_Logica.Interfaces;
 
 public class GaleriaService : IGaleriaService
 {
@@ -15,9 +14,4 @@ public class GaleriaService : IGaleriaService
     {
         return _ctx.MemeImages.OrderBy(e => e.IdEmotion).ToList();
     }
-}
-
-public interface IGaleriaService
-{
-    List<MemeImage> ObtenerMemes();
 }
