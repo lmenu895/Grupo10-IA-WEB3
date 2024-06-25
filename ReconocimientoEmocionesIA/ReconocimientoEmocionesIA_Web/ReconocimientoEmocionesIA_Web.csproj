@@ -26,10 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\imagenes\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Folder Include="wwwroot\imagenes\banner\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 

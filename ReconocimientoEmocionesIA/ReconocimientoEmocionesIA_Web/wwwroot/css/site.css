@@ -52,3 +52,6 @@ body {
     position: relative; 
     z-index: 0; 
 }
+.navbar-violeta {
+    background-color: #4d3871;
+}
